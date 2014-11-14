@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.bielu.dracul.www.domain">
+	<class name="DirectoryInfo" table="sub">
+
+		<id name="id" column="ID" type="long" unsaved-value="0">
+			<generator class="native" />
+		</id>
+
+		<property name="dir" column="Dir" length="30" />
+		<property name="name" column="Nazwa" length="30" />
+		<property name="kmz" column="KMZ" length="255" />
+
+		<many-to-one name="countryInfo" column="ID_par" cascade="save-update" lazy="false" />
+		
+		<set name="images" inverse="true" cascade="save-update">
+			<key column="ID_sub" not-null="true" />
+			<one-to-many class="Image" />
+		</set>
+	</class>
+</hibernate-mapping>

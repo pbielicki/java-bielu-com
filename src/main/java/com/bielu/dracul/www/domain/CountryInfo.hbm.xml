@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.bielu.dracul.www.domain">
+	<class name="CountryInfo" table="parent">
+
+		<id name="id" column="ID" type="long" unsaved-value="0">
+			<generator class="native" />
+		</id>
+
+		<property name="country" column="Kraj" length="30" />
+		<property name="dir" column="Dir" length="30" />
+		<property name="flag" column="Flaga" length="30" />
+		<property name="flagLink" column="refFlaga" length="50" />
+		<property name="background" column="Tlo" length="30" />
+
+		<set name="directories" inverse="true" cascade="save-update" lazy="false" order-by="Nazwa asc">
+			<key column="ID_par" not-null="false" />
+			<one-to-many class="DirectoryInfo" />
+		</set>
+	</class>
+</hibernate-mapping>

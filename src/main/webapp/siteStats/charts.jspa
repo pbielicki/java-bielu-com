@@ -1,0 +1,89 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="cewolf" uri="http://cewolf.sourceforge.net/taglib/cewolf.tld" %>
+<%@ taglib prefix="bielu" uri="http://java.bielu.com/tags/bielu" %>
+<%@ page import="org.springframework.web.context.WebApplicationContext"%>
+<% 
+	pageContext.setAttribute("springContext", 
+				application.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE)); 
+%>
+<jsp:useBean id="siteStatistics" class="com.bielu.dracul.www.charts.StatisticsData"/>
+<jsp:setProperty property="springContext" name="siteStatistics" value="${springContext}" />
+
+<jsp:setProperty property="type" name="siteStatistics" value="method" />
+<cewolf:chart 
+    id="method" 
+    title="Site Access by HTTP Method" 
+    type="pie"
+    showlegend="false">
+    <cewolf:data>
+        <cewolf:producer id="siteStatistics"/>
+    </cewolf:data>
+</cewolf:chart>
+
+<cewolf:img chartid="method" renderer="/cewolf" width="400" height="250">
+	<bielu:map tooltipgeneratorid="siteStatistics" />
+</cewolf:img>
+
+<jsp:setProperty property="type" name="siteStatistics" value="protocol" />
+<cewolf:chart 
+    id="protocol" 
+    title="Site Access by HTTP Protcol" 
+    type="pie"
+    showlegend="false">
+    <cewolf:data>
+        <cewolf:producer id="siteStatistics"/>
+    </cewolf:data>
+</cewolf:chart>
+
+<cewolf:img chartid="protocol" renderer="/cewolf" width="400" height="250">
+	<bielu:map tooltipgeneratorid="siteStatistics" />
+</cewolf:img>
+
+<jsp:setProperty property="type" name="siteStatistics" value="scheme" />
+<cewolf:chart 
+    id="scheme" 
+    title="Site Access by HTTP Scheme" 
+    type="pie"
+    showlegend="false">
+    <cewolf:data>
+        <cewolf:producer id="siteStatistics"/>
+    </cewolf:data>
+</cewolf:chart>
+
+<cewolf:img chartid="scheme" renderer="/cewolf" width="400" height="250">
+	<bielu:map tooltipgeneratorid="siteStatistics" />
+</cewolf:img>
+
+<jsp:setProperty property="type" name="siteStatistics" value="executionTime" />
+<cewolf:chart 
+    id="executionTime" 
+    title="Site Access by Request Duration" 
+    type="pie"
+    showlegend="false">
+    <cewolf:data>
+        <cewolf:producer id="siteStatistics"/>
+    </cewolf:data>
+</cewolf:chart>
+
+<cewolf:img chartid="executionTime" renderer="/cewolf" width="400" height="250">
+	<bielu:map tooltipgeneratorid="siteStatistics" />
+</cewolf:img>
+
+<jsp:useBean id="siteCategoryStatistics" class="com.bielu.dracul.www.charts.StatisticsCategoryData" />
+<jsp:setProperty property="limit" name="siteCategoryStatistics" value="5" />
+<cewolf:chart 
+    id="userAgent" 
+    title="Site Access by Web Browser (User-Agent) - Top 5" 
+    type="verticalbar"
+    showlegend="false"
+    yaxislabel="Views"
+    xaxislabel="User Agent"
+    >
+    <cewolf:data>
+        <cewolf:producer id="siteCategoryStatistics"/>
+    </cewolf:data>
+</cewolf:chart>
+<cewolf:img chartid="userAgent" renderer="/cewolf" width="800" height="250">
+	<bielu:map tooltipgeneratorid="siteCategoryStatistics" />
+</cewolf:img>
+

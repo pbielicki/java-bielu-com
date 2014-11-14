@@ -1,0 +1,128 @@
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+
+	<tlib-version>1.0</tlib-version>
+	<short-name>java.bielu.com</short-name>
+	<uri>http://java.bielu.com/tags/bielu</uri>
+
+	<tag>
+		<description>
+			This tag defines an image and tooltip map for the parent img
+			tag. @parent img
+		</description>
+		<name>map</name>
+		<tag-class>com.bielu.tags.BieluMapTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description>
+				The ID of the class which implements the appropriate
+				de.laures.cewolf.LinkGenerator.
+			</description>
+			<name>linkgeneratorid</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+				The ID of the class which implements the appropriate
+				com.jrefinery.chart.tooltips.ToolTipGenerator.
+			</description>
+			<name>tooltipgeneratorid</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+				If the links provided by the JFreeChart renderer should
+				be used.
+			</description>
+			<name>useJFreeChartLinkGenerator</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+				If the tooltips provided by the JFreeChart renderer
+				should be used.
+			</description>
+			<name>useJFreeChartTooltipGenerator</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<name>lastModified</name>
+		<tag-class>com.bielu.tags.LastModifiedTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>text</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>format</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>configReader</name>
+		<tag-class>com.bielu.tags.ConfigReaderTag</tag-class>
+		<body-content>empty</body-content>
+	</tag>
+	<tag>
+		<name>ipInfo</name>
+		<tag-class>com.bielu.tags.IpInfoTag</tag-class>
+		<body-content>empty</body-content>
+	</tag>
+	<tag>
+		<name>kmzReader</name>
+		<tag-class>com.bielu.tags.KmzReaderTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>location</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>proxy</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>z</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<function>
+		<name>imageBaseUrl</name>
+		<function-class>com.bielu.jsp.util.JspUtil</function-class>
+		<function-signature>
+			java.lang.String imageBaseUrl(com.bielu.dracul.www.domain.Image)
+		</function-signature>
+	</function>
+	<function>
+		<name>currentTime</name>
+		<function-class>com.bielu.jsp.util.JspUtil</function-class>
+		<function-signature>
+			java.lang.String currentTime(java.lang.String)
+		</function-signature>
+	</function>
+	<function>
+		<name>encodeUrl</name>
+		<function-class>com.bielu.jsp.util.JspUtil</function-class>
+		<function-signature>
+			java.lang.String encodeUrl(java.lang.String)
+		</function-signature>
+	</function>
+	<function>
+		<name>copyrightDates</name>
+		<function-class>com.bielu.jsp.util.JspUtil</function-class>
+		<function-signature>
+			java.lang.String copyrightDates(int)
+		</function-signature>
+	</function>
+</taglib>

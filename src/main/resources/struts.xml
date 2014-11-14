@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.action.extension" value="jsps" />
+
+	<package name="com.bielu.java" extends="struts-default">
+	
+		<action name="list" method="list" class="imageAction">
+			<result>imageDatabase/list.jsp</result>
+		</action>
+		
+		<action name="save" method="save" class="editImageAction">
+			<interceptor-ref name="fileUploadStack" />
+			<result name="input" type="chain">
+				<param name="actionName">edit</param>
+			</result>
+
+			<result name="error" type="chain">list</result>
+
+			<result name="success" type="redirect-action">
+				<param name="actionName">list</param>
+				<param name="thumbs">${thumbs}</param>
+				<param name="page">${page}</param>
+				<param name="country">${country}</param>
+				<param name="region">${region}</param>
+				<param name="dir">${dir}</param>
+			</result>
+		</action>
+
+		<action name="edit" method="edit" class="editImageAction">
+			<result name="error" type="chain">
+				<param name="actionName">list</param>
+			</result>
+			<result>/imageDatabase/editImage.jsp</result>
+		</action>
+
+		<!-- Directory Info -->
+		<action name="editDirectory" method="edit" class="editDirectoryInfoAction">
+			<result name="error" type="chain">
+				<param name="actionName">editDirectory</param>
+			</result>
+			<result>/imageDatabase/editDirectoryInfo.jsp</result>
+		</action>
+
+		<action name="saveDirectory" method="save" class="editDirectoryInfoAction">
+			<interceptor-ref name="fileUploadStack" />
+			<result name="input" type="chain">
+				<param name="actionName">editDirectory</param>
+			</result>
+
+			<result name="error" type="chain">list</result>
+
+			<result name="success" type="redirect-action">
+				<param name="actionName">list</param>
+				<param name="thumbs">${thumbs}</param>
+				<param name="page">${page}</param>
+				<param name="country">${country}</param>
+				<param name="region">${region}</param>
+				<param name="dir">${dir}</param>
+			</result>
+		</action>
+
+	</package>
+
+</struts>

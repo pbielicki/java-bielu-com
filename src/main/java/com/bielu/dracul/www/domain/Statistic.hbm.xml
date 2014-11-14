@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.bielu.dracul.www.domain">
+	<class name="Statistic" table="statistics">
+
+		<id name="dateTime" column="time" type="long" unsaved-value="0">
+			<generator class="assigned" />
+		</id>
+		<property name="method" column="method" />
+		<property name="protocol" column="protocol" />
+		<property name="queryString" column="queryString" />
+		<property name="remoteAddress" column="remoteAddress" />
+		<property name="remoteHost" column="remoteHost" />
+		<property name="remotePort" column="remotePort" type="int" />
+		<property name="remoteUser" column="remoteUser" />
+		<property name="requestUri" column="requestUri" />
+		<property name="scheme" column="scheme" />
+		<property name="servletPath" column="servletPath" />
+		<property name="executionTime" column="executionTime" type="long" />
+	</class>
+</hibernate-mapping>

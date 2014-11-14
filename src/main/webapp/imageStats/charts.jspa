@@ -1,0 +1,87 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="bielu" uri="http://java.bielu.com/tags/bielu" %>
+<%@ taglib prefix="cewolf" uri="http://cewolf.sourceforge.net/taglib/cewolf.tld" %>
+<%@ page import="org.springframework.web.context.WebApplicationContext"%>
+<% 
+	pageContext.setAttribute("springContext", 
+				application.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE)); 
+%>
+<jsp:useBean id="imageStats" class="com.bielu.dracul.www.charts.ImagesData"/>
+<jsp:setProperty property="springContext" name="imageStats" value="${springContext}" />
+
+<jsp:useBean id="postProcessor3d" class="com.bielu.dracul.www.charts.PostProcessor3d"/>
+<cewolf:chart 
+    id="mostPopular" 
+    title="Most Popular Images" 
+    type="pie3d"
+    showlegend="false">
+    <cewolf:data>
+        <cewolf:producer id="imageStats"/>
+    </cewolf:data>
+    <cewolf:chartpostprocessor id="postProcessor3d" />
+</cewolf:chart>
+
+<cewolf:img chartid="mostPopular" renderer="/cewolf" width="400" height="250">
+	<bielu:map linkgeneratorid="imageStats" tooltipgeneratorid="imageStats" />
+</cewolf:img>
+
+<jsp:setProperty name="imageStats" property="ascending" value="true" />
+<cewolf:chart 
+    id="leastPopular" 
+    title="Least Popular Images" 
+    type="pie3d"
+    showlegend="false">
+    <cewolf:data>
+        <cewolf:producer id="imageStats"/>
+    </cewolf:data>
+    <cewolf:chartpostprocessor id="postProcessor3d" />
+</cewolf:chart>
+<cewolf:img chartid="leastPopular" renderer="/cewolf" width="400" height="250">
+	<bielu:map linkgeneratorid="imageStats" tooltipgeneratorid="imageStats" />
+</cewolf:img>
+
+<jsp:useBean id="imageCountStats" class="com.bielu.dracul.www.charts.ImagesCountData"/>
+<cewolf:chart 
+    id="imageCount" 
+    title="Summed Images Impressions by Region" 
+    type="pie"
+    showlegend="false">
+    <cewolf:data>
+        <cewolf:producer id="imageCountStats"/>
+    </cewolf:data>
+</cewolf:chart>
+<cewolf:img chartid="imageCount" renderer="/cewolf" width="400" height="250">
+	<bielu:map tooltipgeneratorid="imageCountStats" />
+</cewolf:img>
+
+<jsp:useBean id="pageStats" class="com.bielu.dracul.www.charts.StatData"/>
+<cewolf:chart 
+    id="pageCount" 
+    title="Visits of Main Page by Region" 
+    type="pie"
+    showlegend="false">
+    <cewolf:data>
+        <cewolf:producer id="pageStats"/>
+    </cewolf:data>
+</cewolf:chart>
+
+<cewolf:img chartid="pageCount" renderer="/cewolf" width="400" height="250">
+	<bielu:map tooltipgeneratorid="pageStats" linkgeneratorid="pageStats" />
+</cewolf:img>
+
+<jsp:useBean id="dirStats" class="com.bielu.dracul.www.charts.DirectoryInfoData"/>
+<cewolf:chart 
+    id="dirStatsChart" 
+    title="Directories Visits" 
+    type="verticalbar"
+    showlegend="false"
+    yaxislabel="Views"
+    xaxislabel="Directories"
+    >
+    <cewolf:data>
+        <cewolf:producer id="dirStats"/>
+    </cewolf:data>
+</cewolf:chart>
+<cewolf:img chartid="dirStatsChart" renderer="/cewolf" width="800" height="250">
+	<bielu:map tooltipgeneratorid="dirStats" linkgeneratorid="dirStats" />
+</cewolf:img>

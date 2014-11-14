@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.bielu.dracul.www.domain">
+	<class name="Image" table="img">
+
+		<id name="id" column="ID" type="long" unsaved-value="0">
+			<generator class="native" />
+		</id>
+
+		<property name="path" column="Path" length="50" />
+		<property name="thumbnail" column="Thumb" length="60" />
+		<property name="shortDescription" column="SDescr" length="50" />
+		<property name="description" column="Description" length="2048" />
+		<property name="count" column="Count" type="long" />
+		<property name="kmz" column="KMZ" length="255" />
+
+		<many-to-one name="directoryInfo" column="ID_sub" cascade="save-update" lazy="false" />
+	</class>
+</hibernate-mapping>

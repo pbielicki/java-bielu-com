@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="java.bielu.com" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<display-name>java.bielu.com</display-name>
+
+	<servlet>
+		<servlet-name>CewolfServlet</servlet-name>
+		<servlet-class>de.laures.cewolf.CewolfRenderer</servlet-class>
+		<!-- sets storage implementation -->
+		<init-param>
+			<param-name>storage</param-name>
+			<param-value>
+				de.laures.cewolf.storage.TransientSessionStorage
+			</param-value>
+		</init-param>
+		<!-- sets overlib.js location relative to webapp -->
+		<init-param>
+			<param-name>overliburl</param-name>
+			<param-value>/js/overlib.js</param-value>
+		</init-param>
+		<!-- turn on or off debugging logging -->
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>TrojmiastoRssProvider</servlet-name>
+		<servlet-class>com.bielu.dracul.rss.NewTrojmiastoRssProvider</servlet-class>
+		<init-param>
+		  <param-name>address</param-name>
+		  <param-value><![CDATA[http://www.trojmiasto.pl/wiadomosci/archiwum.php?string_news=&kategoria=0&dzienstart=&dzienstop=&id_watki=0&akcja=szukaj]]></param-value>
+		</init-param>
+	</servlet>
+    <servlet>
+        <servlet-name>LeBonCoinRssProvider</servlet-name>
+        <servlet-class>com.bielu.dracul.rss.LeBonCoinRssProvider</servlet-class>
+        <init-param>
+            <param-name>address</param-name>
+            <param-value><![CDATA[http://www.leboncoin.fr/voitures/offres/provence_alpes_cote_d_azur/alpes_maritimes/?f=a&th=1&pe=21&rs=2007&me=60000&gb=2]]></param-value>
+        </init-param>
+    </servlet>
+
+	<servlet-mapping>
+		<servlet-name>CewolfServlet</servlet-name>
+		<url-pattern>/cewolf/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TrojmiastoRssProvider</servlet-name>
+		<url-pattern>/trojmiasto.rss</url-pattern>
+	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LeBonCoinRssProvider</servlet-name>
+        <url-pattern>/leboncoin.rss</url-pattern>
+    </servlet-mapping>
+
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>
+			org.apache.struts2.dispatcher.FilterDispatcher
+		</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>struts-cleanup</filter-name>
+		<filter-class>
+			org.apache.struts2.dispatcher.ActionContextCleanUp
+		</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>
+			com.opensymphony.module.sitemesh.filter.PageFilter
+		</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>struts-cleanup</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<error-page>
+		<error-code>403</error-code>
+		<location>/errors/403.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/errors/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/errors/500.jsp</location>
+	</error-page>
+
+	<!-- Spring config -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/applicationContext.xml</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Error Pages</web-resource-name>
+			<url-pattern>/errors/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint />
+	</security-constraint>
+	
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jspa</url-pattern>
+        </jsp-property-group>
+    </jsp-config>
+
+	<security-constraint>
+	        <web-resource-collection>
+	                <web-resource-name>Error Pages</web-resource-name>
+	                <url-pattern>/errors/*</url-pattern>
+	        </web-resource-collection>
+	        <auth-constraint />
+	</security-constraint>
+
+	<!--	
+	<security-constraint>
+	        <web-resource-collection>
+	                <web-resource-name>Edit</web-resource-name>
+	                <url-pattern>/save.jsps</url-pattern>
+	                <url-pattern>/saveDirectory.jsps</url-pattern>
+	        </web-resource-collection>
+	        <auth-constraint>
+	                <role-name>manager</role-name>
+	        </auth-constraint>
+	</security-constraint>
+	-->
+	
+	<!-- Define the Login Configuration for this Application -->
+	<!--
+	<login-config>
+	        <auth-method>BASIC</auth-method>
+	        <realm-name>java.bielu.com</realm-name>
+	</login-config>
+	-->
+	<!-- Security roles referenced by this web application -->
+	<!--
+	<security-role>
+	        <description>The role that is required to edit Image database</description>
+	    <role-name>manager</role-name>
+	</security-role>
+	-->
+</web-app>
